@@ -23,7 +23,7 @@ namespace TaskManagerAPI.Services
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Token = token,
+                Token = token, //Can be send via Http Cookies or other more secured ways
                 Role = user.Role.ToString(),
             };
 
