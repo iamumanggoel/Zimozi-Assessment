@@ -13,8 +13,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //Register Database with EF ORM Context
+var useInMemory = builder.Configuration.GetValue<bool>("UseInMemoryDatabase");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    if (useInMemory)
+    {
+        options.UseInMemoryDatabase("TaskManagerDb");
+    }
+    else
+    {
+        var connectionString = builder.Configuration.GetConnectionString("SqlServer");
+        options.UseSqlServer(connectionString);
+    }
+});
 
 
 //Dependency Injection Registery For Repository
@@ -92,11 +103,11 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseHttpsRedirection();
 
@@ -107,5 +118,15 @@ app.UseAuthorization();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
+
+// Seed Data via Method if it is InMemory Database
+//NOTE: EF Core HasData<> does not work with InMemoryDatabase
+if (useInMemory)
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    InMemDb_Seeding.Seed(db);
+}
+
 
 app.Run();
