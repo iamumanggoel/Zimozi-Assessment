@@ -1,68 +1,112 @@
-Task Manager API
+# Task Management API Assesment
+Created in ASP.NET Core Web APIs 8. It is a simple API WebApp used for CRUD regarding user tasks, with JWT authentication and integration with SQL Server Express
 
-This is a simple ASP.NET Core Web API that allows users to manage tasks,
-assign them to users, and add comments. The project demonstrates
-foundational .NET backend skills such as API creation, database
-integration using Entity Framework Core, authentication, and role-based
-authorization.
+## Features
 
-Features:
+- Create, view, and list tasks
+- JWT-based authentication
+- Role-based access (Admin, User)
+- Model validation
+- Unit tests with NUnit & Moq
+- SQL Server Express + EF Core migrations
 
-User registration and login with JWT-based authentication Role-based
-access control (Admin and User) Create, retrieve, and list tasks Assign
-tasks to users Add comments to tasks In-memory database for development
-Swagger UI for testing Model validation using data annotations
-Technology Stack:
+## Setup Instructions
 
-ASP.NET Core (.NET 8)S Entity Framework Core (InMemory) JWT
-Authentication Swagger / Swashbuckle xUnit and Moq for testing Getting
-Started:
+### Prerequisites
+- .NET 8 SDK
+- SQL Server Express (or change connection string to suit your setup)
 
-Prerequisites:
 
-.NET 8 SDK Visual Studio 2022 or later (or any compatible IDE) Steps to
-Run the Project:
+#### 1. Clone the Repository
 
-Clone the repository: git clone
-https://github.com/YOUR_USERNAME/task-manager-api.git cd
-task-manager-api Run the application: dotnet run Access Swagger UI:
-https://localhost:5001/swagger Authentication:
+```bash
+git clone https://github.com/iamumanggoel/Zimozi-Assessment.git
+cd .\TaskManagerAPI\TaskManagerAPI
 
-Login via the /login endpoint to receive a JWT token. Use the
-"Authorize" button in Swagger UI and input the token in this format:
-Bearer `<your_token>`{=html} Seeded Users:
+```
+#### 2. Update DB Connection (if needed)
+   
+Edit ```.\appsettings.Development.json:```
+```json
+"ConnectionStrings": {
+    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=<DatabaseName>;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+```
 
-Username: Umang_Admin, Password: Umang@123, Role: Admin Username:
-Umang_User, Password: Umang@123, Role: User API Endpoints:
+#### 3. Run EF Core Migrations
+```bash
+dotnet ef database update
+```
 
-Public:
+#### 4. Run the Application
+```bash
+dotnet run
+```
+Checkout swagger docs on https://localhost:7107/swagger/index.html or http://localhost:5225/swagger/index.html
 
-POST /login -- Authenticate and receive a token POST /signup -- Register
-a new user Requires Authentication:
+#### 5. Running Tests
+```bash
+cd ..
+cd TaskManagerAPI.Tests
+dotnet test
+```
 
-POST /tasks -- Create a new task GET /tasks/{id} -- Get a task by ID GET
-/tasks/user/{userId} -- Get tasks for a user GET /users -- List all
-users (Admin only) Project Structure:
+### Tests cover:
+  - Task Controller endpoints
+  - Task Service logic
+  - Positive & negative test cases
 
-Run Copy code TaskManagerAPI/ ├── Controllers/ ├── Services/ ├──
-Repositories/ ├── Entities/ ├── Data/ ├── DTOs/ ├── Helpers/ └──
-Program.cs Database Design:
+JWT Token must be included in Authorization: ```Bearer <token>``` header.
 
-Tables: Users, Tasks, TaskComments Relationships: One-to-Many: Users →
-Tasks One-to-Many: Tasks → TaskComments Sample SQL Queries:
+### Authentication
+JWT tokens are issued based on login (hardcoded user or via seeded data). Role checks are enforced for endpoint access where applicable.
 
-Get all tasks assigned to a user: SELECT \* FROM Tasks WHERE UserId = 1;
-Get all comments for a task: SELECT \* FROM TaskComments WHERE TaskId =
-1; An ER diagram is included in the docs/ERDiagram.pdf. Unit Testing:
+- Seeded User Credentials (or you can signUp using API endpoint)
+  ```json
+    [
+      {
+        "username": "Admin",
+        "password": "Zimozi@123"
+      },
+      {
+        "username": "User",
+        "password": "Zimozi@123"
+      },
+    ]
+  ```
+  
+ ### Database Design
+- Users
 
-Tests are located in the test project folder. To run tests: dotnet test
-Tests include: Positive and negative scenarios Mocked services using Moq
-Focused on services and controllers Deployment (Optional):
+- Tasks (Assigned to Users)
 
-A basic Dockerfile is provided. The app can be deployed to services like
-Render or Railway. Deliverables Checklist:
+- TaskComments (User + Task Id foreign keys)
 
-Private GitHub repository Functional API with endpoints and
-authentication Swagger UI for testing Seed data for users ER diagram
-README file Unit tests (Optional) Docker deployment Author: This project
-was developed as part of the .NET backend recruitment assessment.
+### Sample SQL Queries
+
+```sql
+-- Get all tasks assigned to user
+SELECT * FROM Tasks WHERE UserId = <UserId>; --USE UserId = 1 or 2 for seeded data
+```
+
+```sql 
+-- Get all comments on a task
+SELECT * FROM TaskComments WHERE TaskId = <TaskId>; -- USE TaskId = 1 or 2 for seeded data
+```
+### Docker Support 
+To build and run with Docker:
+  1. Make Sure you have Docker Installed in your system.
+```bash
+docker build -f "<Path>\TaskManagerAPI\TaskManagerAPI\Dockerfile" --force-rm -t taskmanagerapi:dev --target base  --build-arg "BUILD_CONFIGURATION=Debug" --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=TaskManagerAPI" "<Path>\TaskManagerAPI" 
+```
+#### NOTE
+You don't need to provide Visual Studio related Arguments if running with termial directly,
+
+```bash
+docker run -p 5000:80 task-manager-api
+```
+
+
+
+### Video Walkthrough
+[Link Text](http://example.com)
