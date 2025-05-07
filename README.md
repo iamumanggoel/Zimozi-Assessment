@@ -13,7 +13,7 @@ Created in ASP.NET Core Web APIs 8. It is a simple API WebApp used for CRUD rega
 
 
 # Deliverables
-- Video WalkThrough [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/walkthrught.mp3)
+- Video WalkThrough [Click Me](https://www.loom.com/share/9f9f13824a1849cfb0b7f6b6561f2360?sid=eb344e28-259d-4728-97a1-e3b1306bda1a)
 - API project code (in GitHub repo) [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment)
 - Simple data models and a few seed records [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI/Entities)
 - Postman collection or Swagger UI for testing [DONE]
@@ -138,6 +138,6 @@ Now you can access swagger docs at http://localhost:8080/swagger/index.html
 
 
 ### Video Walkthrough
-[CLICK]([http://example.com](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/walkthrught.mp3))
+[CLICK](https://www.loom.com/share/9f9f13824a1849cfb0b7f6b6561f2360?sid=eb344e28-259d-4728-97a1-e3b1306bda1a)
 
 
