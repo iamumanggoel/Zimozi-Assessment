@@ -1,9 +1,4 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskManagerAPI.Entities;
 using TaskManagerAPI.Models.DTOs;
 using TaskManagerAPI.Repositories;
@@ -31,40 +26,37 @@ namespace TaskManagerAPI.Tests.Services
             var req = new TaskCreateRequest
             {
                 Title = "Test 1",
-                Description = "Test Desc",
+                Description = "Test Descrption",
                 UserId = 1
             };
 
-            var expected = new TaskEntity
+            var saved = new TaskEntity
             {
                 Id = 1,
                 Title = req.Title,
                 Description = req.Description,
-                UserId = req.UserId,
-                CreatedDate = It.IsAny<DateTime>(),
-                LastUpdated = It.IsAny<DateTime>()
+                UserId = req.UserId
             };
 
             _mockRepo
                 .Setup(r => r.AddTaskAsync(It.IsAny<TaskEntity>()))
-                .ReturnsAsync((TaskEntity task) => task);
+                .ReturnsAsync(saved);
 
             var response = await _taskService.CreateTaskAsync(req);
 
             Assert.Multiple(() =>
             {
-                Assert.That(response.Title, Is.EqualTo(req.Title));
-                Assert.That(response.Description, Is.EqualTo(req.Description));
-                Assert.That(response.UserId, Is.EqualTo(req.UserId));
-                Assert.That(response.CreatedDate, Is.Not.EqualTo(default(DateTime)));
-                Assert.That(response.LastUpdated, Is.Not.EqualTo(default(DateTime)));
+                Assert.That(response.Id, Is.EqualTo(saved.Id));
+                Assert.That(response.Title, Is.EqualTo(saved.Title));
+                Assert.That(response.UserId, Is.EqualTo(saved.UserId));
             });
         }
+
 
         [Test]
         public async Task GetTask_TaskExists_ReturnsSuccess()
         {
-            var task = new TaskEntity { Id = 1, Title = "Test 1", UserId = 1 };
+            var task = new TaskEntity { Id = 1, Title = "Test 1", UserId = 1, Comments = [] };
             _mockRepo.Setup(r => r.GetTask(1)).ReturnsAsync(task);
 
             var result = await _taskService.GetTask(1);

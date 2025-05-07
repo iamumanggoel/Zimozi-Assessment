@@ -4,18 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TaskManagerAPI.Entities
 {
     [Table("TaskComments")]
-    public class CommentEntity: BaseEntity
+    public class TaskCommentsEntity : BaseEntity
     {
         [StringLength(500)]
         public string? Content { get; set; }
+
+        [Required]
         public int TaskId { get; set; }
-        [ForeignKey("TaskId")]
-        public virtual required TaskEntity Task { get; set; }
+
+        public TaskEntity? Task { get; set; }
+
+        [Required]
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual required UserEntity User { get; set; }
 
-        
-
+        public UserEntity? User { get; set; }
     }
+
 }

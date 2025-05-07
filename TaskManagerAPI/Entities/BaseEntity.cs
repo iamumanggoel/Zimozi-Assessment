@@ -6,7 +6,7 @@ namespace TaskManagerAPI.Entities
     {
         [Key]
         public int Id { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-        public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+
+        //Add Audit & other common properties
     }
 }

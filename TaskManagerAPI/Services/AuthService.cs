@@ -51,7 +51,7 @@ namespace TaskManagerAPI.Services
             var newUser = new UserEntity
             {
                 UserName = request.UserName,
-                HashedPassword = request.Password,
+                HashedPassword = request.Password, //TODO: Add AES encryption for securing password
                 Role = Role.User, //TODO: Admin role can't be created with APIs 
             };
 

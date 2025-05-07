@@ -5,8 +5,8 @@ namespace TaskManagerAPI.Services
 {
     public interface ITaskService
     {
-        Task<TaskEntity> CreateTaskAsync(TaskCreateRequest requestDto);
-        Task<TaskEntity?> GetTask(int Id);
-        Task<List<TaskEntity>> GetTasksByUserId(int userId);
+        Task<TaskResponse> CreateTaskAsync(TaskCreateRequest requestDto);
+        Task<TaskResponse?> GetTask(int Id);
+        Task<List<TaskResponse>> GetTasksByUserId(int userId);
     }
 }

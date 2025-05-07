@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TaskManagerAPI.Entities
 {
     [Table("Users")]
-    public class UserEntity: BaseEntity
+    public class UserEntity : BaseEntity
     {
         [Required]
         [StringLength(50)]
@@ -18,7 +18,10 @@ namespace TaskManagerAPI.Entities
         [Required]
         public required Role Role { get; set; } = Role.User;
 
+        public virtual ICollection<TaskEntity> Tasks { get; set; } = [];
+        public virtual ICollection<TaskCommentsEntity> TaskComments { get; set; } = [];
     }
+
 
     public enum Role
     {

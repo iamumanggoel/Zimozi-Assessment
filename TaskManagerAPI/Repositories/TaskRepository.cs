@@ -17,13 +17,13 @@ namespace TaskManagerAPI.Repositories
 
         public async Task<TaskEntity?> GetTask(int Id)
         {
-            var task = await _context.Tasks.FindAsync(Id);
+            var task = await _context.Tasks.Include(t => t.Comments).FirstOrDefaultAsync(task => task.Id == Id);
             return task;
         }
 
         public async Task<List<TaskEntity>> GetTasksByUserId(int UserId)
         {
-            return await _context.Tasks.Where(task => task.UserId == UserId).ToListAsync() ?? [];
+            return await _context.Tasks.Where(task => task.UserId == UserId).Include(t => t.Comments).ToListAsync() ?? [];
         }
     }
 }

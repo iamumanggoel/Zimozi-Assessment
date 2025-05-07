@@ -9,10 +9,9 @@ namespace TaskManagerAPI.Data
         //DbSets to be mapped to Database table
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<TaskEntity> Tasks { get; set; }
-        public DbSet<CommentEntity> TaskComments { get; set; }
+        public DbSet<TaskCommentsEntity> TaskComments { get; set; }
 
 
-        // Data Seeding if tables are Empty
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -22,10 +21,30 @@ namespace TaskManagerAPI.Data
                .HasIndex(u => u.UserName)
                .IsUnique();
 
+            // Relationships
+            modelBuilder.Entity<TaskEntity>()
+                .HasOne(t => t.User)
+                .WithMany(t => t.Tasks)
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<TaskCommentsEntity>()
+                .HasOne(c => c.Task)
+                .WithMany(t => t.Comments)
+                .HasForeignKey(c => c.TaskId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TaskCommentsEntity>()
+                .HasOne(c => c.User)
+                .WithMany(c => c.TaskComments) 
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // prevents multiple cascade path
+
+
+            // Data Seeding if tables are Empty
             modelBuilder.Entity<UserEntity>().HasData(
-                new UserEntity { Id = 1, UserName = "Umang_Admin", HashedPassword = "Umang@123", Role = Role.Admin, CreatedDate = DateTime.UtcNow, LastUpdated = DateTime.UtcNow },
-                new UserEntity { Id = 2, UserName = "Umang_User", HashedPassword = "Umang@123", Role = Role.User, CreatedDate = DateTime.UtcNow, LastUpdated = DateTime.UtcNow }
+                new UserEntity { Id = 1, UserName = "Admin", HashedPassword = "Zimozi@123", Role = Role.Admin },
+                new UserEntity { Id = 2, UserName = "User", HashedPassword = "Zimozi@123", Role = Role.User }
             );
 
             modelBuilder.Entity<TaskEntity>().HasData(
@@ -34,8 +53,6 @@ namespace TaskManagerAPI.Data
                     Title = "Task 1", 
                     Description = "Sample Task assigned to Admin",
                     UserId = 1,
-                    CreatedDate = DateTime.UtcNow,
-                    LastUpdated = DateTime.UtcNow
                 },
                 new TaskEntity
                 {
@@ -43,10 +60,26 @@ namespace TaskManagerAPI.Data
                     Title = "Task 2",
                     Description = "Sample Task assigned to User",
                     UserId = 2,
-                    CreatedDate = DateTime.UtcNow,
-                    LastUpdated = DateTime.UtcNow
                 }
             );
+
+            modelBuilder.Entity<TaskCommentsEntity>().HasData(
+                    new TaskCommentsEntity
+                    {
+                        Id = 1,
+                        Content = "This is Test Content 1",
+                        UserId = 1,
+                        TaskId = 1,
+                    },
+                    new TaskCommentsEntity
+                    {
+                        Id = 2,
+                        Content = "This is Test Content 2",
+                        UserId = 1,
+                        TaskId = 1,
+                        
+                    }
+                );
         }
     }
 }

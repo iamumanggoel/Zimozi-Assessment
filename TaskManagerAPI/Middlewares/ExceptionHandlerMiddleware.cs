@@ -31,7 +31,9 @@ namespace TaskManagerAPI.Middlewares
             var response = new
             {
                 context.Response.StatusCode,
-                exception.Message,
+                Message = exception.Message,
+                InnerExceptionMessage = exception.InnerException?.Message, // Safe access to inner exception message
+                StackTrace = exception.StackTrace
             };
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response));

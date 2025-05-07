@@ -30,7 +30,7 @@ namespace TaskManagerAPI.Tests.Controllers
         public async Task CreateTask_ValidRequest_ReturnsSuccess()
         {
             var req = new TaskCreateRequest { Title = "Test", UserId = 1 };
-            var task = new TaskEntity { Id = 1, Title = "Test", UserId = 1 };
+            var task = new TaskResponse { Id = 1, Title = "Test", UserId = 1 };
 
             _taskServiceMock.Setup(s => s.CreateTaskAsync(req)).ReturnsAsync(task);
 
@@ -61,7 +61,7 @@ namespace TaskManagerAPI.Tests.Controllers
         [Test]
         public async Task GetTaskById_TaskExists_ReturnsSuccess()
         {
-            var task = new TaskEntity { Id = 1, Title = "Task", UserId = 1 };
+            var task = new TaskResponse { Id = 1, Title = "Task", UserId = 1 };
 
             _taskServiceMock.Setup(s => s.GetTask(1)).ReturnsAsync(task);
 
@@ -79,7 +79,7 @@ namespace TaskManagerAPI.Tests.Controllers
         [Test]
         public async Task GetTaskById_TaskNotExists_ReturnsFailure()
         {
-            _taskServiceMock.Setup(s => s.GetTask(2)).ReturnsAsync((TaskEntity?) null);
+            _taskServiceMock.Setup(s => s.GetTask(2)).ReturnsAsync((TaskResponse?) null);
 
             var response = await _taskController.GetTaskById(2) as NotFoundObjectResult;
 
@@ -91,7 +91,7 @@ namespace TaskManagerAPI.Tests.Controllers
         [Test]
         public async Task GetTasksByUserId_TaskExists_ReturnsSuccess()
         {
-            var tasks = new List<TaskEntity>
+            var tasks = new List<TaskResponse>
             {
                 new() { Id = 1, Title = "Task 1", UserId = 1 },
                 new() { Id = 2, Title = "Task 2", UserId = 1 }

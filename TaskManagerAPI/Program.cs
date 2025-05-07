@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Globalization;
 using System.Text;
 using TaskManagerAPI.Data;
 using TaskManagerAPI.Middlewares;
-using TaskManagerAPI.Models;
 using TaskManagerAPI.Repositories;
 using TaskManagerAPI.Services;
 
@@ -13,10 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //Register Database with EF ORM Context
-builder.Services.AddDbContext<AppDbContext>(opt =>
-{
-    opt.UseInMemoryDatabase("TaskManagerDb");
-});
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 //Dependency Injection Registery For Repository
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
