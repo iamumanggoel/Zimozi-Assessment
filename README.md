@@ -10,6 +10,33 @@ Created in ASP.NET Core Web APIs 8. It is a simple API WebApp used for CRUD rega
 - Unit tests with NUnit & Moq
 - SQL Server Express + EF Core migrations
 
+
+
+# Deliverables
+- Video WalkThrough [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/walkthrught.mp3)
+- API project code (in GitHub repo) [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment)
+- Simple data models and a few seed records [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI/Entities)
+- Postman collection or Swagger UI for testing [DONE]
+- README file explaining how to run the project locally [DONE]
+  
+- SQL or EF Core migration scripts [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI/Migrations)
+- ER diagram (can be done in dbdiagram.io or draw.io) [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/ER_Diagram.png)
+- A sample SQL query to:
+    - 1. Get all tasks assigned to a user [Click ME](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#sample-sql-queries)
+    - 2. Get all comments on a task [Click ME](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#sample-sql-queries)
+
+- Fixed code file [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/ErrorFix.cs)
+- Short written explanation of the changes [Present in Comments in Code file]
+
+- Dockerfile [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/TaskManagerAPI/Dockerfile)
+- Link to the live demo (if deployed) [Click Me](https://zimozi-assessment-oh8s.onrender.com/swagger/index.html)
+- Screenshot of successful deployment [Image1](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/SuccessFullyDeployed.png); [Image2](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/SuccessFullyDeployed_2.png)
+
+- Test project folder with unit test files [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI.Tests)
+- README or comment explaining how to run tests [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#5-running-tests)
+
+
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -21,19 +48,20 @@ Created in ASP.NET Core Web APIs 8. It is a simple API WebApp used for CRUD rega
 
 ```bash
 git clone https://github.com/iamumanggoel/Zimozi-Assessment.git
-cd .\TaskManagerAPI\TaskManagerAPI
+cd .\TaskManagerAPI
 
 ```
-#### 2. Update DB Connection (if needed)
+#### 2. Update DB Connection (if needed) 
+ ##### NOTE: You can switch between InMemory Database & SQL Server Express with ```UseInMemoryDatabase``` boolean in appsettings.Development.json
    
 Edit ```.\appsettings.Development.json:```
 ```json
 "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=<DatabaseName>;Trusted_Connection=True;TrustServerCertificate=True;"
+    "sqlServer": "Server=localhost\\SQLEXPRESS;Database=<DatabaseName>;Trusted_Connection=True;TrustServerCertificate=True;"
 }
 ```
 
-#### 3. Run EF Core Migrations
+#### 3. Run EF Core Migrations (not needed for in memory db)
 ```bash
 dotnet ef database update
 ```
@@ -46,8 +74,7 @@ Checkout swagger docs on https://localhost:7107/swagger/index.html or http://loc
 
 #### 5. Running Tests
 ```bash
-cd ..
-cd TaskManagerAPI.Tests
+cd ./TaskManagerAPI.Tests
 dotnet test
 ```
 
@@ -97,39 +124,20 @@ SELECT * FROM TaskComments WHERE TaskId = <TaskId>; -- USE TaskId = 1 or 2 for s
 ```
 ### Docker Support 
 To build and run with Docker:
-  1. Make Sure you have Docker Installed in your system.
+  1. Make Sure you have Docker Installed in your system and you are in Repository Root Folder
 ```bash
-docker build -f "<Path>\TaskManagerAPI\TaskManagerAPI\Dockerfile" --force-rm -t taskmanagerapi:dev --target base  --build-arg "BUILD_CONFIGURATION=Debug" --label "com.microsoft.created-by=visual-studio" --label "com.microsoft.visual-studio.project-name=TaskManagerAPI" "<Path>\TaskManagerAPI" 
+docker build -t taskmanagerapi -f ./TaskManagerAPI/Dockerfile .
 ```
-#### NOTE
-You don't need to provide Visual Studio related Arguments if running with termial directly,
 
 ```bash
-docker run -p 5000:80 task-manager-api
+docker run -d -p 8080:8080 --name taskmanager-container taskmanagerapi
 ```
+
+Now you can access swagger docs at http://localhost:8080/swagger/index.html
 
 
 
 ### Video Walkthrough
-[Link Text](http://example.com)
+[CLICK]([http://example.com](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/walkthrught.mp3))
 
-
-
-# Deliverables
-- API project code (in GitHub repo) [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment)
-- Simple data models and a few seed records [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI/Entities)
-- Postman collection or Swagger UI for testing [DONE]
-- README file explaining how to run the project locally [DONE]
-  
-- SQL or EF Core migration scripts [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI/Migrations)
-- ER diagram (can be done in dbdiagram.io or draw.io) [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/ER_Diagram.png)
-- A sample SQL query to:
-    - 1. Get all tasks assigned to a user [Click ME](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#sample-sql-queries)
-    - 2. Get all comments on a task [Click ME](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#sample-sql-queries)
-
-- Fixed code file [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/ErrorFix.cs)
- - Short written explanation of the changes [Present in Comments in Code file]
-
-- Test project folder with unit test files [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI.Tests)
-- README or comment explaining how to run tests [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#5-running-tests)
 
