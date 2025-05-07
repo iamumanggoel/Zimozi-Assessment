@@ -127,6 +127,9 @@ docker run -p 5000:80 task-manager-api
     - 1. Get all tasks assigned to a user [Click ME](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#sample-sql-queries)
     - 2. Get all comments on a task [Click ME](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#sample-sql-queries)
 
+- Fixed code file [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/ErrorFix.cs)
+ - Short written explanation of the changes [Present in Comments in Code file]
+
 - Test project folder with unit test files [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/tree/main/TaskManagerAPI.Tests)
 - README or comment explaining how to run tests [Click Me](https://github.com/iamumanggoel/Zimozi-Assessment/blob/main/README.md#5-running-tests)
 
