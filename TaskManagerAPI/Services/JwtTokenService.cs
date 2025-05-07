@@ -16,7 +16,7 @@ namespace TaskManagerAPI.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns>newly generated jwt token</returns>
-        public string Generate(UserEntity user)
+        public string GenerateToken(UserEntity user)
         {
             var expiry = DateTime.UtcNow.AddMinutes(
                     Convert.ToDouble(_config["JwtSettings:DurationInMinutes"]));

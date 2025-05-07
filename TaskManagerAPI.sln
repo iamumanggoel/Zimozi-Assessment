@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagerAPI", "TaskManagerAPI\TaskManagerAPI.csproj", "{B0F25267-73D6-4551-AC4F-2FF426BC19B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagerAPI", "TaskManagerAPI\TaskManagerAPI.csproj", "{B0F25267-73D6-4551-AC4F-2FF426BC19B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagerAPI.Tests", "TaskManagerAPI.Tests\TaskManagerAPI.Tests.csproj", "{88870163-461B-4CA5-AAE3-E687A4A5399B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B0F25267-73D6-4551-AC4F-2FF426BC19B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0F25267-73D6-4551-AC4F-2FF426BC19B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0F25267-73D6-4551-AC4F-2FF426BC19B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88870163-461B-4CA5-AAE3-E687A4A5399B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88870163-461B-4CA5-AAE3-E687A4A5399B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88870163-461B-4CA5-AAE3-E687A4A5399B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88870163-461B-4CA5-AAE3-E687A4A5399B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

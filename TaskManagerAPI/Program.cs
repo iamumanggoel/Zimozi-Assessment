@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TaskManagerAPI.Data;
+using TaskManagerAPI.Middlewares;
 using TaskManagerAPI.Models;
 using TaskManagerAPI.Repositories;
 using TaskManagerAPI.Services;
@@ -103,6 +104,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+//Exception Handling Middleware
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 

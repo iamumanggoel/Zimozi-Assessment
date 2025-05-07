@@ -11,11 +11,14 @@ namespace TaskManagerAPI.Services
 
         public async Task<LoginResponse?> Login(LoginRequest request)
         {
+            //Validate User Credentials (Authentication)
             var user = await _userRepo.GetUserAsync(request.UserName, request.Password);
             if (user is null)
                 return null;
 
-            var token = _jwtservice.Generate(user);
+            //Generate AuthToken
+            var token = _jwtservice.GenerateToken(user);
+
             return new LoginResponse
             {
                 Id = user.Id,
@@ -40,6 +43,7 @@ namespace TaskManagerAPI.Services
 
         public async Task<UserEntity?> SignUp(LoginRequest request)
         {
+            //Early exit if user is already registered
             var user = await _userRepo.GetUserAsync(request.UserName, request.Password);
             if (user is not null)
                 return null;
